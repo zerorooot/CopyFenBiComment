@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CopyFenBi</string>
+    <string name="app_name">CopyFenBiComment</string>
     <array name="xposed_scope">
         <item>com.fenbi.android.servant</item>
     </array>

@@ -12,4 +12,4 @@ https://github.com/zerorooot/CopyFenBiComment/tree/main/app/release
 
 ![](demo.gif)
 
-注意：仅在**6.16.37**版本测试过，其他版本大概率不行
+注意：仅在**6.16.37**、**6.16.39.32**版本测试过，其他版本大概率不行
