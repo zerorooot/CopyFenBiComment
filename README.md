@@ -4,7 +4,7 @@
 
 # 下载地址
 
-https://github.com/zerorooot/CopyFenBiComment/tree/main/app/release
+https://github.com/zerorooot/CopyFenBiComment/tree/main/app/download
 
 # 如何使用
 
