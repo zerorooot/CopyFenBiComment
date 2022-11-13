@@ -4,7 +4,7 @@
 
 # 下载地址
 
-https://github.com/zerorooot/CopyFenBiComment/tree/main/app/download
+https://github.com/Xposed-Modules-Repo/github.zerorooot.copyfenbi/releases
 
 # 如何使用
 
