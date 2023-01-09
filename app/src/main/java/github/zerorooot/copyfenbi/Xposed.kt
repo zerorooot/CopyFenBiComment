@@ -73,24 +73,37 @@ class Xposed : IXposedHookLoadPackage {
             object : XC_MethodHook() {
                 @Throws(Throwable::class)
                 override fun beforeHookedMethod(param: MethodHookParam) {
-                    val replaceWord = arrayOf(
-                        "老师讲的真好",
-                        "清晰明了",
-                        "很棒棒",
-                        "满分！",
-                        "\uD83D\uDC4D\uD83D\uDC4D\uD83D\uDC4D\uD83D\uDC4D",
-                        "打破零回复",
-                        "懂了",
-                        "拓展的很好",
-                        "老师讲的挺好 咬字清晰 语速适当 爱了 爱了",
-                        "下次还错-.-",
-                        "吃了没文化的亏",
-                        "基础不牢，地动山摇",
-                        "不拖泥带水 很好"
-                    )
                     val comment = XposedHelpers.callMethod(param.args[0], "getComment") as String
-                    val replace= replaceWord.random()
                     if (comment.contains("上岸") || comment.contains("点赞")) {
+                        val replaceWord = arrayOf(
+                            "老师讲的真好",
+                            "清晰明了",
+                            "很棒棒",
+                            "满分！",
+                            "\uD83D\uDC4D\uD83D\uDC4D\uD83D\uDC4D\uD83D\uDC4D",
+                            "懂了",
+                            "拓展的很好",
+                            "老师讲的挺好 咬字清晰 语速适当 爱了 爱了",
+                            "下次还错-.-",
+                            "吃了没文化的亏",
+                            "基础不牢，地动山摇",
+                            "不拖泥带水 很好",
+                            "赞！",
+                            "讲的很清晰明了，可以加鸡腿了",
+                            "满分",
+                            "负责的老师",
+                            "老喜欢这个老师了！讲的真好",
+                            "讲解得非常全面",
+                            "讲的很好，学到了一些不知道的知识",
+                            "老师讲的很好！！",
+                            "我对了,我蒙的",
+                            "每次最痛苦的就是二选一，最最痛苦的就是每次二选一都选错ᇂ_ᇂ",
+                            "真好，拓展了很多知识",
+                            "眼瞎的集合",
+                            "不错！全讲到了！棒棒棒！",
+                            "好"
+                        )
+                        val replace = replaceWord.random()
                         XposedBridge.log("CopyFenbi $comment -> $replace")
                         XposedHelpers.setObjectField(param.args[0], "comment", replace)
                     }
