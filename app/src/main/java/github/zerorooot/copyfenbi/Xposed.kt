@@ -1,5 +1,6 @@
 package github.zerorooot.copyfenbi
 
+
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -40,42 +41,62 @@ class Xposed : IXposedHookLoadPackage {
             "真好，拓展了很多知识",
             "眼瞎的集合",
             "不错！全讲到了！棒棒棒！",
-            "好"
+            "好",
+            "盲人考编",
+            "眼睛是个好东西，可惜我没有"
         )
     }
 
     override fun handleLoadPackage(lpparam: LoadPackageParam) {
-        if (lpparam.packageName.equals("com.fenbi.android.servant")) {
-            XposedHelpers.findAndHookMethod("com.netease.nis.wrapper.MyApplication",
-                lpparam.classLoader,
-                "a",
-                Context::class.java,
-                object : XC_MethodHook() {
-                    @Throws(Throwable::class)
-                    override fun beforeHookedMethod(param: MethodHookParam) {
-                        val classLoader = (param.args[0] as Context).classLoader
-                        copy(classLoader)
-
-                        if (check("dz")) {
-                            filtration(classLoader)
-                        }
-
-                        if (check("sp")) {
-                            hideVideo(classLoader)
-                        }
-
-                    }
-                })
+        if (lpparam.packageName != "com.fenbi.android.servant") {
+            return
         }
 
+        XposedHelpers.findAndHookMethod("com.netease.nis.wrapper.MyApplication",
+            lpparam.classLoader,
+            "a",
+            Context::class.java,
+            object : XC_MethodHook() {
+                @Throws(Throwable::class)
+                override fun beforeHookedMethod(param: MethodHookParam) {
+                    val classLoader = (param.args[0] as Context).classLoader
+                    copy(classLoader)
+                    ad(classLoader)
+
+                    if (check("dz")) {
+                        filtration(classLoader)
+                    }
+
+                    if (check("sp")) {
+                        hideVideo(classLoader)
+                    }
+
+                }
+            })
+
+
+    }
+
+    private fun ad(classLoader: ClassLoader) {
+        XposedHelpers.findAndHookMethod(
+            "com.fenbi.android.sundries.welcome.AdLauncherApi\$ApiResult\$DatasEntity",
+            classLoader,
+            "getImageUrl",
+            object : XC_MethodHook() {
+                @Throws(Throwable::class)
+                override fun beforeHookedMethod(param: MethodHookParam) {
+                    XposedBridge.log("copy fenbi skip ad ${param.result}")
+                    param.result = ""
+                }
+            })
     }
 
     private fun copy(classLoader: ClassLoader) {
         val episodeCommentClass =
             XposedHelpers.findClass("com.fenbi.android.ke.data.EpisodeComment", classLoader)
-        XposedHelpers.findAndHookMethod("dc4",
+        XposedHelpers.findAndHookMethod("wv2",
             classLoader,
-            "j",
+            "w",
             View::class.java,
             episodeCommentClass,
             object : XC_MethodHook() {
@@ -90,7 +111,11 @@ class Xposed : IXposedHookLoadPackage {
                     val clip: ClipData = ClipData.newPlainText("copy fen bi", comment)
                     clipboard.setPrimaryClip(clip)
 
-                    Toast.makeText(context, "用户 $nickName 的评论已复制到剪贴板", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        "用户 $nickName 的评论已复制到剪贴板",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     param.result = false
                 }
             })
@@ -101,9 +126,9 @@ class Xposed : IXposedHookLoadPackage {
             XposedHelpers.findClass("com.fenbi.android.ke.data.EpisodeComment", classLoader)
 
         XposedHelpers.findAndHookMethod(
-            "dc4",
+            "wv2",
             classLoader,
-            "i",
+            "v",
             episodeCommentClass,
             object : XC_MethodHook() {
                 @Throws(Throwable::class)
@@ -127,7 +152,7 @@ class Xposed : IXposedHookLoadPackage {
         )
         XposedHelpers.findAndHookMethod("com.fenbi.android.question.common.render.MemberVideoRender",
             classLoader,
-            "Q",
+            "e0",
             String::class.java,
             episode,
             userMemberState,
@@ -136,12 +161,11 @@ class Xposed : IXposedHookLoadPackage {
                 override fun afterHookedMethod(param: MethodHookParam) {
                     val linearLayout = (XposedHelpers.getObjectField(
                         param.thisObject,
-                        "i"
+                        "j"
                     ) as LinearLayout)
 
                     //R$id.member_video_wrapper
-                    linearLayout.findViewById<View>(2131365094).visibility = View.GONE
-
+                    linearLayout.findViewById<View>(2131365183).visibility = View.GONE
                 }
             })
     }
