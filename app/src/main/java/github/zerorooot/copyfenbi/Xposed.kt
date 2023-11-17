@@ -79,7 +79,7 @@ class Xposed : IXposedHookLoadPackage {
 
     private fun ad(classLoader: ClassLoader) {
         XposedHelpers.findAndHookMethod(
-            "com.fenbi.android.sundries.welcome.AdLauncherApi\$ApiResult\$DatasEntity",
+            "com.fenbi.android.sundries.welcome.AdLauncherApi\$DatasEntity",
             classLoader,
             "getImageUrl",
             object : XC_MethodHook() {
@@ -94,9 +94,9 @@ class Xposed : IXposedHookLoadPackage {
     private fun copy(classLoader: ClassLoader) {
         val episodeCommentClass =
             XposedHelpers.findClass("com.fenbi.android.ke.data.EpisodeComment", classLoader)
-        XposedHelpers.findAndHookMethod("wv2",
+        XposedHelpers.findAndHookMethod("y33",
             classLoader,
-            "w",
+            "F",
             View::class.java,
             episodeCommentClass,
             object : XC_MethodHook() {
@@ -126,9 +126,9 @@ class Xposed : IXposedHookLoadPackage {
             XposedHelpers.findClass("com.fenbi.android.ke.data.EpisodeComment", classLoader)
 
         XposedHelpers.findAndHookMethod(
-            "wv2",
+            "y33",
             classLoader,
-            "v",
+            "B",
             episodeCommentClass,
             object : XC_MethodHook() {
                 @Throws(Throwable::class)
@@ -152,7 +152,7 @@ class Xposed : IXposedHookLoadPackage {
         )
         XposedHelpers.findAndHookMethod("com.fenbi.android.question.common.render.MemberVideoRender",
             classLoader,
-            "e0",
+            "n0",
             String::class.java,
             episode,
             userMemberState,
@@ -165,7 +165,7 @@ class Xposed : IXposedHookLoadPackage {
                     ) as LinearLayout)
 
                     //R$id.member_video_wrapper
-                    linearLayout.findViewById<View>(2131365183).visibility = View.GONE
+                    linearLayout.findViewById<View>(2131365493).visibility = View.GONE
                 }
             })
     }
